@@ -8,10 +8,12 @@ var inquirer = require("inquirer");
 //var prompt = require('prompt');
 var Letter = require("./letter.js")
 var Word = require("./word.js")
-//prompt.start();
-//var letsPlay = true;
-//start();
-// Create a "Prompt" with a series of questions.
+
+
+///////////////////////////////////////
+// start
+// Create a "Prompt" 
+///////////////////////////////////////
 function start() {
 inquirer
   .prompt([
@@ -19,36 +21,29 @@ inquirer
     {
       type: "confirm",
       message: "Are you ready to Play Hangman?",
-      name: "readyToPlay"//,
-      //default: true
+      name: "readyToPlay",
+      default: false
     }])
     .then(function(inquirerResponse) {
     // If the inquirerResponse confirms, play
-    debugger;
-    letsPlay = inquirerResponse.readyToPlay;
-    if (letsPlay) {
-
+    console.log("readyplay "+inquirerResponse.readyToPlay)
+    var Play = inquirerResponse.readyToPlay;
+    if (Play) {
       console.log("\nWelcome to hangman fun!" );//+ inquirerResponse.readyToPlay);
       }
     else {
-
       console.log("\nThat's okay, come again when you are more sure.\n");
+      return;
     }
   });
-}
+} //end start
+//start(); //printing question twice...
 
-/*
-var guessesLeft = 10;
-var hangmanWord = selectWord();
-var selectedWord = hangmanWord.word;
-var letters = [];
-for (var i=0; i<selectedWord.length; i++) {
-  letters.push(new Letter(selectedWord.charAt(i)));
-}
-displayWord();
-var solved = false;
-*/
-//selects a random word from the array of words and returns it as a Word object
+///////////////////////////////////////
+// guessNow
+// selects a random word from the array of words 
+// and returns it as a Word object
+///////////////////////////////////////
 function selectWord() {
     var words = ["dum", "easy", "hara", "harr", "free"];//Bookkeeper
     var num = Math.floor(Math.random() * 5);
@@ -57,7 +52,9 @@ function selectWord() {
       debugger;
     return word;
 }
-
+///////////////////////////////////////
+// guessNow
+///////////////////////////////////////
 var guessNow = function() {
 if (guessesLeft)
 {
@@ -116,11 +113,14 @@ var letsPlay = 1;
 var guessesLeft = 0;
 var hangmanWord = "temp";
 var letters = [];
+var maxGames = 5;
 //while ( letsPlay--) 
 startGame();
 function restartGame() {
 	letters=[];
-	startGame();
+	maxGames--;
+	if (maxGames)
+		startGame();
 }
 function startGame()
 {
@@ -136,25 +136,10 @@ function startGame()
   guessNow();	
 } // end startGame
 
-if (0)
-{
-var myguess = "adefghijklmnopqrstuvwxy"
-for (var k=0; k<myguess.length;k++)
-{
-  var guess = myguess[k];
-  var letterFound = false;
-  letterFound = hangmanWord.checkLetter(guess,letters);
-  displayWord();
-  solved = hangmanWord.checkIfSolved(letters)
-  if (solved)
-  {
-  	console.log("you win!")
-  	break;
-  }
-}
-}
-
-
+///////////////////////////////////////
+// displayWord
+// console display current word guesses
+///////////////////////////////////////
 function displayWord(letters) {
   var displayedWord = "";
   for (var i=0; i<letters.length; i++) {
@@ -162,6 +147,5 @@ function displayWord(letters) {
     displayedWord += " ";
   }
   console.log(displayedWord);
-}
+} // end displayWord
 
- //console.log("selected "+hangmanWord.word)
