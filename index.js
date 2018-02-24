@@ -1,14 +1,12 @@
-/* **index.js**: The file containing the logic for the course of the game, which depends on `Word.js` and:
-
+/* **index.js**: The file containing the logic for the course of the game, 
+    which depends on `Word.js` and
   * Randomly selects a word and uses the `Word` constructor to store it
-
   * Prompts the user for each guess and keeps track of the user's remaining guesses
+  Author: Maryann Jordan
 */
 var inquirer = require("inquirer");
-//var prompt = require('prompt');
 var Letter = require("./letter.js")
 var Word = require("./word.js")
-
 
 ///////////////////////////////////////
 // start
@@ -44,21 +42,21 @@ inquirer
 // selects a random word from the array of words 
 // and returns it as a Word object
 ///////////////////////////////////////
-function selectWord() {
-    var words = ["dum", "easy", "hara", "harr", "free"];//Bookkeeper
-    var num = Math.floor(Math.random() * 5);
+function selectWord() 
+{
+    var words = ["pajama", "snooze", "dream", "siesta", "slumber", "catnap", 
+    "doze", "sandman", "shuteye", "slippers"];
+    var num = Math.floor(Math.random() * 10);
     var word = new Word(words[num]);
-    //console.log("word is "+word)
-      debugger;
     return word;
 }
 ///////////////////////////////////////
 // guessNow
 ///////////////////////////////////////
 var guessNow = function() {
-if (guessesLeft)
-{
-	console.log(" left "+guessesLeft)
+ if (guessesLeft)
+ {
+  console.log("\n  "+guessesLeft+" guesses left ")
   inquirer.prompt([
    {
       message: "Your letter?",
@@ -66,64 +64,76 @@ if (guessesLeft)
       name: "uLetter"
    }]) 
   	.then(function(uInput) {
-  	   //console.log(userInput.userInputLetter)
      var guess = uInput.uLetter;
-
      var letterFound = false;
      guessesLeft--;
      letterFound = hangmanWord.checkLetter(guess,letters);
-    if (letterFound) {
-  	//console.log("letterFound")
-    solved = hangmanWord.checkIfSolved(letters)
-    if (solved)
-    {
-  	 displayWord(letters);
-  	 console.log("you win!")
-  	 console.log("restart?")
-  	 restartGame();
-    }
-    else
-    {
-     console.log("not solved "+solved)
-  	 displayWord(letters);
-  	 if(guessesLeft)
-  	 {
-  	   guessNow();
-  	 }
-  	 else
-  	 	restartGame();
-    }
-  } // end letterFound
+     if (letterFound) 
+      {
+       solved = hangmanWord.checkIfSolved(letters)
+       if (solved)
+       {
+  	    displayWord(letters);
+  	    console.log("\n  YOO HOO you win!\n")
+  	    restartGame();
+       }
+       else
+       {
+  	     displayWord(letters);
+  	     if(guessesLeft)
+  	      guessNow();
+  	     else
+  	     {
+  	 	  console.log("  Better Luck next time! Sorry you did not guess the word...\n")
+  	 	  restartGame();
+  	     }
+        }
+   } // end letterFound
   else
-  {
+   {
   	if (guessesLeft)
+  	{
+  	  displayWord(letters);
   	  guessNow();
+  	}
     else
     {
-      console.log("restart?")
+      console.log("  Sorry sleepyhead you did not guess the word...\n")
       restartGame();
     }
-  }
- }); // end inquirer.then
+   }
+  }); // end inquirer.then
  } // end guessesLeft
- 
 } // end guessNow
+///////////////////////////////////////
+// global variables
+///////////////////////////////////////
 
 var letsPlay = 1;
 var guessesLeft = 0;
 var hangmanWord = "temp";
 var letters = [];
 var maxGames = 5;
-//while ( letsPlay--) 
+///////////////////////////////////////
+// startGame
+///////////////////////////////////////
 startGame();
-function restartGame() {
+///////////////////////////////////////
+// restartGame
+///////////////////////////////////////
+function restartGame() 
+{
 	letters=[];
 	maxGames--;
 	if (maxGames)
 		startGame();
 }
+///////////////////////////////////////
+// startGame
+///////////////////////////////////////
 function startGame()
 {
+  console.log("  HANGMAN FUN (bedtime)\n");
   guessesLeft = 10;
   hangmanWord = selectWord();
   var selectedWord = hangmanWord.word;
@@ -141,7 +151,7 @@ function startGame()
 // console display current word guesses
 ///////////////////////////////////////
 function displayWord(letters) {
-  var displayedWord = "";
+  var displayedWord = "  ";
   for (var i=0; i<letters.length; i++) {
     displayedWord += letters[i].printLetter();
     displayedWord += " ";

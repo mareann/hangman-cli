@@ -1,0 +1,22 @@
+{
+  "name": "hangman-cli",
+  "version": "1.0.0",
+  "description": "hangman command-line game using constructor functions",
+  "main": "xgame.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mareann/hangman-cli.git"
+  },
+  "author": "maryann jordan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mareann/hangman-cli/issues"
+  },
+  "homepage": "https://github.com/mareann/hangman-cli#readme",
+  "dependencies": {
+    "inquirer": "^5.1.0"
+  }
+}
