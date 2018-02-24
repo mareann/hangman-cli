@@ -25,7 +25,7 @@ function Word(word) {
   //checks to see if the letter guessed is in the word, and calls the method to change the shown character if it is
   this.checkLetter = function(letter, letters) {
     var letterFound = false;
-    console.log(letter)
+    //console.log(letter+" word "+this.word.length)
     for (var i=0; i<this.word.length; i++) {
       if (this.word.charAt(i).toLowerCase() == letter.toLowerCase()) {
         letterFound = true;
@@ -38,6 +38,7 @@ function Word(word) {
   //all the shown characters are letters
   this.checkIfSolved = function(letters) {
     var solved = true;
+    //console.log("solved "+this.word.length)
     for (var i=0; i<this.word.length; i++) {
       if (letters[i].shown == '_') {
         solved = false;
