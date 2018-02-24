@@ -13,6 +13,7 @@ var Word = require("./word.js")
 // start
 // Create a "Prompt" 
 ///////////////////////////////////////
+start();
 function start() {
 inquirer
   .prompt([
@@ -21,23 +22,22 @@ inquirer
       type: "confirm",
       message: "Are you ready to Play Hangman?",
       name: "readyToPlay",
-      default: false
+      default: true
     }])
     .then(function(inquirerResponse) {
     // If the inquirerResponse confirms, play
-    console.log("readyplay "+inquirerResponse.readyToPlay)
+    //console.log("readyplay "+inquirerResponse.readyToPlay)
     var Play = inquirerResponse.readyToPlay;
     if (Play) {
-      console.log("\nWelcome to hangman fun!" );//+ inquirerResponse.readyToPlay);
+      console.log("\n  Welcome to hangman fun (hint: bedtime)!" );//+ inquirerResponse.readyToPlay);
+      startGame();
       }
     else {
-      console.log("\nThat's okay, come again when you are more sure.\n");
+      console.log("\n  That's okay, come again when you have time.\n");
       return;
     }
   });
 } //end start
-//start(); //printing question twice...
-
 ///////////////////////////////////////
 // guessNow
 // selects a random word from the array of words 
@@ -85,7 +85,7 @@ var guessNow = function() {
   	      guessNow();
   	     else
   	     {
-  	 	  console.log("  Better Luck next time! Sorry you did not guess the word...\n")
+  	 	  console.log("\n  Better Luck next time! Sorry you did not guess the word...\n")
   	 	  restartGame();
   	     }
         }
@@ -99,7 +99,7 @@ var guessNow = function() {
   	}
     else
     {
-      console.log("  Sorry sleepyhead you did not guess the word...\n")
+      console.log("\n  Sorry sleepyhead you did not guess the word...\n")
       restartGame();
     }
    }
@@ -109,16 +109,11 @@ var guessNow = function() {
 ///////////////////////////////////////
 // global variables
 ///////////////////////////////////////
-
 var letsPlay = 1;
 var guessesLeft = 0;
 var hangmanWord = "temp";
 var letters = [];
 var maxGames = 5;
-///////////////////////////////////////
-// startGame
-///////////////////////////////////////
-startGame();
 ///////////////////////////////////////
 // restartGame
 ///////////////////////////////////////
@@ -134,7 +129,7 @@ function restartGame()
 ///////////////////////////////////////
 function startGame()
 {
-  console.log("  HANGMAN FUN (bedtime)\n");
+  console.log("  NEW GAME\n");
   guessesLeft = 10;
   hangmanWord = selectWord();
   var selectedWord = hangmanWord.word;
